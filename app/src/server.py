@@ -7,10 +7,8 @@ from app import app
 from database import db
 
 # Import Controllers
-from sample.controller import *
+from occupancy.controller import OccupancyListController
 
-#Import Models
-from sample.model import Sample
 
 
 api = Api(app)
@@ -18,8 +16,7 @@ api = Api(app)
 prefix = "/api"
 
 # Routes
-api.add_resource(SampleController, f'{prefix}/sample/<int:sample_id>')
-api.add_resource(SampleListController, f'{prefix}/sample')
+api.add_resource(OccupancyListController, f'{prefix}/occupancy')
 
 
 if __name__ == "__main__":
