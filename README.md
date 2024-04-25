@@ -17,6 +17,6 @@ Format de la requête : http://127.0.0.1:5000/api/occupancy [GET]
 ```
 
 Format des dates : %Y-%m-%d %H:%M:%S
-Granularity : en seconde
+// Granularity : en seconde
 
 -------------------------------
