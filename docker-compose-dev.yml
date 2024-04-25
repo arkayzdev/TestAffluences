@@ -1,0 +1,39 @@
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: affluences
+      MYSQL_PASSWORD: affluences
+      MYSQL_DATABASE: affluences
+      
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 5s
+      timeout: 3s
+      retries: 4
+      start_period: 20s
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+  app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+        PORT: 5000
+        DB_HOST: db
+        DB_USER: affluences
+        DB_PASSWORD: affluences
+        DB_NAME: affluences
+        DB_PORT: 3306
+    volumes:
+      - ./app:/app
+
